@@ -4,10 +4,12 @@ class GraphsController < ApplicationController
 
 	def data
 		respond_to do |format|
+			myArray = (0..5).collect{ 1 + rand(10) }
+			dataset = myArray.to_a
 			format.json {
-				render :json => [23, 34, 13, 45, 3]
+				render :json => dataset
 			}
 		end
 	end
-	
+
 end
