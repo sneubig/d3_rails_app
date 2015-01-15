@@ -1,18 +1,20 @@
+// Horizonal Bar Graph Data
 $.ajax({
   type: "GET",
   contentType: "application/json; charset=utf-8",
   url: 'graphs/data',
   dataType: 'json',
   success: function (data) {
-    draw(data);
+    horizontalBar(data);
   },
   error: function (result) {
     error();
   }
 });
  
-function draw(data) {
+function horizontalBar(data) {
   var color = d3.scale.category20b();
+
   var width = 420,
       barHeight = 20;
 
