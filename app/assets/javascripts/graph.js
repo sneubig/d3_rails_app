@@ -6,6 +6,7 @@ $.ajax({
   dataType: 'json',
   success: function (data) {
     horizontalBar(data);
+    pieChart(data)
   },
   error: function (result) {
     error();
@@ -15,14 +16,14 @@ $.ajax({
 function horizontalBar(data) {
   var color = d3.scale.category20b();
 
-  var width = 420,
+  var width = 600,
       barHeight = 20;
 
   var x = d3.scale.linear()
       .range([0, width])
       .domain([0, d3.max(data)]);
 
-  var chart = d3.select("#graph")
+  var chart = d3.select("#horizBar")
       .attr("width", width)
       .attr("height", barHeight * data.length);
 
@@ -42,7 +43,7 @@ function horizontalBar(data) {
 
   bar.append("text")
       .attr("x", function (d) {
-        return x(d) - 20;
+        return x(d) - 30;
       })
       .attr("y", barHeight / 2)
       .attr("dy", ".35em")
@@ -50,6 +51,37 @@ function horizontalBar(data) {
       .text(function (d) {
         return d;
       });
+}
+
+function pieChart(data) {
+  var width = 500;
+  var height = 150;
+  var radius = height / 2;
+
+  var arc = d3.svg.arc()
+                  .innerRadius(radius - 40)
+                  .outerRadius(radius);
+
+  var pie = d3.layout.pie()
+                     .padAngle(.02);
+
+  var color = d3.scale.category10();
+
+  var svg = d3.select('#pieChart')
+               .append('svg')
+               .attr('width', width)
+               .attr('height', height)
+               .append('g')
+               .attr('transform', 'translate(' + width / 3 + ',' + height / 2 + ')');
+
+  svg.selectAll('path')
+      .data(pie(data))
+      .enter()
+      .append('path')
+      .style('fill', function(d, i){
+        return color(i);
+      })
+      .attr('d', arc);
 }
  
 function error() {

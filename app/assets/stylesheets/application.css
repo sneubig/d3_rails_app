@@ -11,5 +11,6 @@
  * file per style scope.
  *
  *= require global.css.scss
+ *= require graph.css.scss
  *= require_self
  */
