@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'stocks#index'
+  root 'graphs#index'
+  get 'graphs/index'
+  get 'graphs/data', :defaults => { :format => 'json' }
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
